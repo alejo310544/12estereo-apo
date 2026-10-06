@@ -11,10 +11,16 @@ jobs:
       - name: Descargar proyecto
         uses: actions/checkout@v4
 
+      - name: Mostrar archivos
+        run: |
+          echo "Archivos del repositorio:"
+          ls -lah
+
       - name: Descomprimir proyecto
         run: |
-          unzip -o 12Estereo_Android_Project.zip
-          ls -la 12EstereoApp
+          unzip -o 12Estereo_Android_Project_Updated.zip
+          echo "Contenido del proyecto:"
+          find . -maxdepth 2 -type f | head -100
 
       - name: Configurar Java
         uses: actions/setup-java@v4
@@ -29,8 +35,7 @@ jobs:
 
       - name: Preparar Android SDK
         run: |
-          echo "ANDROID_HOME=$ANDROID_SDK_ROOT"
-          ls "$ANDROID_SDK_ROOT"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
           yes | sdkmanager --licenses || true
 
       - name: Compilar APK
