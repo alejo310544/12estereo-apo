@@ -1,1 +1,465 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>12 Estéreo 101.3 FM | Aplicación oficial</title>
+
+    <meta name="description"
+          content="Descarga la aplicación oficial de 12 Estéreo 101.3 FM. Escucha nuestra emisora en vivo desde El Doce, Antioquia.">
+
+    <meta name="theme-color" content="#090909">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top, #292000 0%, #090909 42%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* ENCABEZADO */
+
+        header {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 28px;
+            box-shadow:
+                0 0 30px rgba(255, 204, 0, .30);
+            margin-bottom: 18px;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .frequency {
+            color: #ffd000;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        .official {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 7px 14px;
+            border-radius: 30px;
+            background: rgba(255, 208, 0, .12);
+            border: 1px solid rgba(255, 208, 0, .35);
+            color: #ffd000;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* VALORACIÓN */
+
+        .rating {
+            margin: 18px 0;
+            text-align: center;
+        }
+
+        .stars {
+            color: #ffd000;
+            font-size: 27px;
+            letter-spacing: 3px;
+        }
+
+        .rating-number {
+            margin-top: 5px;
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        /* TARJETA PRINCIPAL */
+
+        .card {
+            background: rgba(25, 25, 25, .94);
+            border: 1px solid #383838;
+            border-radius: 25px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.45);
+        }
+
+        .description {
+            text-align: center;
+            color: #ddd;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* BOTONES */
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 17px 20px;
+            margin-top: 13px;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 17px;
+            transition: transform .15s, opacity .15s;
+        }
+
+        .button:active {
+            transform: scale(.98);
+        }
+
+        .download {
+            background: linear-gradient(135deg, #ffd000, #ff9d00);
+            color: #111;
+            box-shadow: 0 8px 25px rgba(255, 190, 0, .25);
+        }
+
+        .live {
+            background: #f1f1f1;
+            color: #111;
+        }
+
+        .whatsapp {
+            background: #19c463;
+            color: white;
+        }
+
+        .button-icon {
+            margin-right: 8px;
+        }
+
+        /* INFORMACIÓN */
+
+        .section-title {
+            font-size: 21px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #ffd000;
+        }
+
+        .info {
+            margin-top: 25px;
+        }
+
+        .info p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #303030;
+            color: #ddd;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        /* WHATSAPP */
+
+        .whatsapp-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(25, 196, 99, .08);
+            border: 1px solid rgba(25, 196, 99, .3);
+            text-align: center;
+        }
+
+        .whatsapp-box h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .whatsapp-box p {
+            color: #bbb;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* INSTALACIÓN */
+
+        .install-step {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 13px;
+            background: #202020;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .number {
+            display: inline-flex;
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #ffd000;
+            color: #111;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* PIE */
+
+        footer {
+            text-align: center;
+            padding: 30px 10px;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        footer strong {
+            color: #aaa;
+        }
+
+        /* PC */
+
+        @media (min-width: 700px) {
+
+            .container {
+                padding-top: 40px;
+            }
+
+            .card {
+                padding: 35px;
+            }
+
+            .app-title {
+                font-size: 38px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ENCABEZADO -->
+
+    <header>
+
+        <!--
+        CAMBIA "logo_12estereo.jpg" POR EL NOMBRE EXACTO
+        DEL LOGO QUE SUBAMOS AL REPOSITORIO.
+        -->
+
+        <img
+            src="logo_12estereo.jpg"
+            alt="Logo 12 Estéreo"
+            class="logo"
+        >
+
+        <h1 class="app-title">
+            12 ESTÉREO
+        </h1>
+
+        <div class="frequency">
+            101.3 FM
+        </div>
+
+        <div class="official">
+            ✓ APLICACIÓN OFICIAL
+        </div>
+
+    </header>
+
+
+    <!-- VALORACIÓN -->
+
+    <div class="rating">
+
+        <div class="stars">
+            ★★★★★
+        </div>
+
+        <div class="rating-number">
+            5,0 · Aplicación oficial de 12 Estéreo
+        </div>
+
+    </div>
+
+
+    <!-- TARJETA PRINCIPAL -->
+
+    <div class="card">
+
+        <p class="description">
+
+            🎵 Escucha <strong>12 Estéreo 101.3 FM</strong>
+            en vivo desde cualquier lugar.
+
+            <br><br>
+
+            Transmitiendo desde
+            <strong>El Doce, Antioquia para el mundo.</strong>
+
+        </p>
+
+
+        <!-- DESCARGA -->
+
+        <a
+            class="button download"
+            href="app-debug.apk"
+            download
+        >
+            <span class="button-icon">⬇️</span>
+            DESCARGAR APLICACIÓN
+        </a>
+
+
+        <!-- ESCUCHAR -->
+
+        <a
+            class="button live"
+            href="https://fdsfdsfdsf.radio12345.com/intro.mp3"
+            target="_blank"
+        >
+            <span class="button-icon">📻</span>
+            ESCUCHAR EN VIVO
+        </a>
+
+
+        <!-- WHATSAPP -->
+
+        <a
+            class="button whatsapp"
+            href="https://wa.me/573019133840"
+            target="_blank"
+        >
+            <span class="button-icon">💬</span>
+            PEDIR MI CANCIÓN POR WHATSAPP
+        </a>
+
+
+        <!-- INFORMACIÓN -->
+
+        <div class="info">
+
+            <h2 class="section-title">
+                📱 Sobre la aplicación
+            </h2>
+
+            <p>
+                Lleva <strong>12 Estéreo 101.3 FM</strong>
+                contigo y disfruta nuestra programación
+                desde tu teléfono Android.
+            </p>
+
+            <ul class="features">
+
+                <li>
+                    🎵 Escucha nuestra emisora en vivo
+                </li>
+
+                <li>
+                    📱 Aplicación ligera y fácil de usar
+                </li>
+
+                <li>
+                    🔊 Reproducción de nuestra señal radial
+                </li>
+
+                <li>
+                    📻 12 Estéreo 101.3 FM
+                </li>
+
+                <li>
+                    🌎 Desde El Doce, Antioquia para el mundo
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- WHATSAPP -->
+
+        <div class="whatsapp-box">
+
+            <h3>
+                🎶 ¿QUIERES PEDIR TU CANCIÓN?
+            </h3>
+
+            <p>
+                Escríbenos directamente por WhatsApp
+                y solicita tu canción favorita.
+            </p>
+
+            <a
+                class="button whatsapp"
+                href="https://wa.me/573019133840"
+                target="_blank"
+            >
+                💬 ESCRIBIR POR WHATSAPP
+            </a>
+
+            <p style="margin-top:12px; margin-bottom:0;">
+                301 913 3840
+            </p>
+
+        </div>
+
+
+        <!-- INSTALACIÓN -->
+
+        <div class="info">
+
+            <h2 class="section-title">
+                📲 ¿Cómo instalar la aplicación?
+            </h2>
+
+            <div class="install-step">
+                <span class="number">1</span>
+                Pulsa <strong>DESCARGAR APLICACIÓN</strong>.
+            </div>
+
+            <div class="install-step">
+                <span class="number">2</span>
+                Espera a que termine la descarga del APK.
+            </div>
+
+            <div class="install-step">
+                <span class="number">3</span>
+                Abre el archivo descargado.
+            </div>
+
+            <div class="install-step">
+               
