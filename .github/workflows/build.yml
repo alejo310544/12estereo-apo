@@ -1,0 +1,39 @@
+name: Build 12 Estereo APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Descomprimir proyecto
+        run: |
+          unzip -o 12Estereo_Android_Project.zip -d .
+          ls -la
+          ls -la 12EstereoApp
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Instalar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Compilar APK
+        working-directory: 12EstereoApp
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 12Estereo-APK
+          path: 12EstereoApp/app/build/outputs/apk/debug/*.apk
