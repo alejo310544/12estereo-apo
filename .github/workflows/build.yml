@@ -11,16 +11,32 @@ jobs:
       - name: Descargar proyecto
         uses: actions/checkout@v4
 
-      - name: Mostrar archivos
+      - name: Ver archivos
         run: |
-          echo "Archivos del repositorio:"
+          echo "=== ARCHIVOS DEL REPOSITORIO ==="
+          ls -lah
+          echo "=== ARCHIVOS ZIP ==="
+          find . -maxdepth 1 -type f -iname "*.zip" -print
+
+      - name: Encontrar y descomprimir proyecto
+        run: |
+          ZIP=$(find . -maxdepth 1 -type f -iname "*.zip" | head -n 1)
+
+          if [ -z "$ZIP" ]; then
+            echo "ERROR: No se encontró ningún archivo ZIP."
+            exit 1
+          fi
+
+          echo "ZIP encontrado: $ZIP"
+          unzip -o "$ZIP"
+
+          echo "=== CONTENIDO ==="
           ls -lah
 
-      - name: Descomprimir proyecto
+      - name: Buscar carpeta de Android
         run: |
-          unzip -o 12Estereo_Android_Project_Updated.zip
-          echo "Contenido del proyecto:"
-          find . -maxdepth 2 -type f | head -100
+          echo "=== BUSCANDO PROYECTO ==="
+          find . -maxdepth 3 -type f \( -name "build.gradle" -o -name "settings.gradle" -o -name "gradlew" \) -print
 
       - name: Configurar Java
         uses: actions/setup-java@v4
