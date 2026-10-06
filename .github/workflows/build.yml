@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Descargar proyecto
         uses: actions/checkout@v4
 
@@ -15,6 +16,7 @@ jobs:
         run: |
           echo "=== ARCHIVOS DEL REPOSITORIO ==="
           ls -lah
+
           echo "=== ARCHIVOS ZIP ==="
           find . -maxdepth 1 -type f -iname "*.zip" -print
 
@@ -28,15 +30,19 @@ jobs:
           fi
 
           echo "ZIP encontrado: $ZIP"
+
           unzip -o "$ZIP"
 
-          echo "=== CONTENIDO ==="
+          echo "=== CONTENIDO DEL PROYECTO ==="
           ls -lah
 
       - name: Buscar carpeta de Android
         run: |
-          echo "=== BUSCANDO PROYECTO ==="
-          find . -maxdepth 3 -type f \( -name "build.gradle" -o -name "settings.gradle" -o -name "gradlew" \) -print
+          echo "=== BUSCANDO PROYECTO ANDROID ==="
+
+          find . -maxdepth 4 -type f \
+            \( -name "build.gradle" -o -name "settings.gradle" \) \
+            -print
 
       - name: Configurar Java
         uses: actions/setup-java@v4
@@ -52,15 +58,33 @@ jobs:
       - name: Preparar Android SDK
         run: |
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+
           yes | sdkmanager --licenses || true
+
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
+
+      - name: Crear carpetas Android necesarias
+        run: |
+          mkdir -p 12EstereoApp/app/src/debug/java
+          mkdir -p 12EstereoApp/app/src/debug/res
+
+          echo "=== CARPETAS CREADAS ==="
+          find 12EstereoApp/app/src -maxdepth 3 -type d -print
 
       - name: Compilar APK
         working-directory: 12EstereoApp
         run: |
-          gradle assembleDebug
+          echo "=== INICIANDO COMPILACION ==="
+          gradle assembleDebug --stacktrace
+
+      - name: Verificar APK
+        run: |
+          echo "=== APK GENERADO ==="
+          find 12EstereoApp/app/build/outputs/apk -type f -name "*.apk" -print
 
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
           name: 12Estereo-APK
           path: 12EstereoApp/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
